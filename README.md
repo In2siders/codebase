@@ -67,18 +67,21 @@ Copy the example environment file and customize as needed:
 
 ```bash
 cp .env.example .env
+# Edit .env and set secure passwords, especially for production use
 ```
+
+**Important:** Always use strong, unique passwords for production deployments. The example file contains placeholder values that should be changed.
 
 Available environment variables:
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `BACKEND_URL` | `http://localhost:4000` | Backend API URL for frontend |
+| `BACKEND_URL` | `http://backend:4000` | Backend API URL for frontend (use service name for inter-container communication) |
 | `BACKEND_PORT` | `4000` | Backend server port |
 | `NODE_ENV` | `production` | Node environment |
 | `POSTGRES_DB` | `in2siders` | PostgreSQL database name |
 | `POSTGRES_USER` | `in2siders` | PostgreSQL username |
-| `POSTGRES_PASSWORD` | `in2siders` | PostgreSQL password |
+| `POSTGRES_PASSWORD` | `changeme-use-strong-password` | PostgreSQL password (change this!) |
 | `DATABASE_TYPE` | `sqlite` | Database type (sqlite/postgres) |
 | `DATABASE_PATH` | `./data/database.db` | SQLite database path |
 
