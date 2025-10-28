@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: ghcr.io/in2siders/frontend-web:latest
+    container_name: in2siders-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=${BACKEND_URL:-http://backend:4000}
+      - NODE_ENV=${NODE_ENV:-production}
+    depends_on:
+      - backend
+    networks:
+      - in2siders-network
+    restart: unless-stopped
+
+  backend:
+    image: ghcr.io/in2siders/backend:latest
+    container_name: in2siders-backend
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=${BACKEND_PORT:-4000}
+      - NODE_ENV=${NODE_ENV:-production}
+      - DATABASE_TYPE=${DATABASE_TYPE:-sqlite}
+      - DATABASE_PATH=${DATABASE_PATH:-./data/database.db}
+    volumes:
+      - backend-data:/app/data
+    networks:
+      - in2siders-network
+    restart: unless-stopped
+
+networks:
+  in2siders-network:
+    driver: bridge
+
+volumes:
+  backend-data:
+    driver: local
